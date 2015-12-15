@@ -4,23 +4,71 @@
 {
     //Required. Inputs the module expects.
     "inputs": [
-        //e.g.
-        /*
         {
-            "id": "from",
-            "title":"From"
+            "id": "part",
+            "title":"Part"
+        },
+        {
+            "id": "q",
+            "title":"Search"
+        },
+        {
+            "id": "channelId",
+            "title":"Channel ID"
+        },
+        {
+            "id": "channelType",
+            "title":"Channel Type"
+        },
+        {
+            "id": "maxResults",
+            "title":"Max Results"
+        },
+        {
+            "id": "order",
+            "title": "Order"
+        },
+        {
+            "id": "publishedAfter",
+            "title":"Published After"
+        },
+        {
+            "id": "publishedBefore",
+            "title":"Published Before"
         }
-        */
     ],
     //Required. Outputs the module emits.
     "outputs": [
-      //e.g.
-      /*
         {
-            "id": "from",
-            "title":"From"
+            "id": "kind",
+            "title":"Kind"
+        },
+        {
+            "id": "etag",
+            "title":"Etag"
+        },
+        {
+            "id": "prevPageToken",
+            "title":"Prev Token"
+        },
+        {
+            "id": "nextPageToken",
+            "title":"Next Token"
+        },
+        {
+            "id": "totalResults",
+            "title":"Total"
+        },
+        {
+            "id": "resultsPerPage",
+            "title":"Results Per Page"
+        },
+        {
+            "id": "items",
+            "title":"Items"
         }
-      */
     ],
+    "icon": "youtube-play",
+
     "title": "YouTube Search" /* Required.A display name for the module */
 }
