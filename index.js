@@ -26,33 +26,6 @@ var pickInputs = {
     };
 
 module.exports = {
-
-    /**
-     * Get auth data.
-     *
-     * @param step
-     * @param dexter
-     * @returns {*}
-     */
-    authOptions: function (step, dexter) {
-        var OAuth2 = google.auth.OAuth2,
-            oauth2Client = new OAuth2();
-
-        if(!dexter.environment('google_access_token')) {
-
-            this.fail('A [google_access_token] environment variable is required for this module');
-
-            return false;
-        } else {
-
-            oauth2Client.setCredentials({
-                access_token: dexter.environment('google_access_token')
-            });
-
-            return oauth2Client;
-        }
-    },
-
     /**
      * The main entry point for the Dexter module
      *
@@ -60,19 +33,16 @@ module.exports = {
      * @param {AppData} dexter Container for all data used in this workflow.
      */
     run: function(step, dexter) {
-        var auth = this.authOptions(step, dexter);
-
-        if (!auth)
-            return;
+        var OAuth2 = google.auth.OAuth2,
+            oauth2Client = new OAuth2(),
+            credentials = dexter.provider('google').credentials();
         // set credential
-        google.options({ auth: auth });
-
-        service.search.list(util.pickStringInputs(step, pickInputs), function (error, data) {
-
-            if (error)
-                this.fail(error);
-            else
-                this.complete(util.pickResult(data, pickOutputs));
+        oauth2Client.setCredentials({
+            access_token: _.get(credentials, 'access_token')
+        });
+        google.options({ auth: oauth2Client });
+        service.search.list(util.pickInputs(step, pickInputs), function (error, data) {
+            error? this.fail(error) : this.complete(util.pickOutputs(data, pickOutputs));
         }.bind(this));
     }
 };
